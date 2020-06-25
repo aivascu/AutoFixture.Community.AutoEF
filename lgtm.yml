@@ -1,0 +1,6 @@
+extraction:
+  csharp:
+    index:
+      solution: "./All.sln"
+      dotnet:
+        version: "3.1.100"
