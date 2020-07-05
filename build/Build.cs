@@ -23,7 +23,7 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
-internal class Build : NukeBuild
+internal partial class Build : NukeBuild
 {
     /// Support plugins are available for:
     ///   - JetBrains ReSharper        https://nuke.build/resharper
@@ -67,7 +67,7 @@ internal class Build : NukeBuild
         .Where(p => !p.Name.EndsWith(".Tests")
             && !NonLibProjects.Contains(p.Name, StringComparer.OrdinalIgnoreCase));
 
-    private IEnumerable<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg");
+    private List<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg").ToList();
 
     private AbsolutePath SourceDirectory => RootDirectory / "src";
     private AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
@@ -101,11 +101,11 @@ internal class Build : NukeBuild
              DotNetBuild(s => s
                  .EnableNoLogo()
                  .SetProjectFile(Solution)
+                 .SetNoRestore(InvokedTargets.Contains(Restore))
                  .SetConfiguration(Configuration)
                  .SetAssemblyVersion(GitVersion.AssemblySemVer)
                  .SetFileVersion(GitVersion.AssemblySemFileVer)
-                 .SetInformationalVersion(GitVersion.InformationalVersion)
-                 .EnableNoRestore());
+                 .SetInformationalVersion(GitVersion.InformationalVersion));
          });
 
     private Target Test => _ => _
@@ -178,14 +178,13 @@ internal class Build : NukeBuild
                         || GitRepository.Branch.StartsWithOrdinalIgnoreCase(HotfixBranchPrefix))
         .Executes(() =>
         {
-            var packages = PackageFiles.ToList();
-            Assert(packages.Count == 4, "Unexpected number of packages.");
+            Assert(PackageFiles.Count == 4, "Unexpected number of packages.");
 
             DotNetNuGetPush(s => s
                 .SetSource(NuGetSource)
                 .SetApiKey(NuGetApiKey)
                 .EnableSkipDuplicate()
-                .CombineWith(packages, (_, p) => _.SetTargetPath(p)),
+                .CombineWith(PackageFiles, (_, p) => _.SetTargetPath(p)),
                 degreeOfParallelism: 5,
                 completeOnFailure: true);
         });
