@@ -1,0 +1,1 @@
+# AutoFixture.Community.AutoEF
