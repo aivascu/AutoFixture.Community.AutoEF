@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Tooling;
@@ -10,33 +10,53 @@ using static Nuke.Common.Tools.Git.GitTasks;
 
 partial class Build
 {
-    private Target Coveralls => _ => _
-         .DependsOn(Cover)
-         .TriggeredBy(Cover)
-         .Consumes(Cover)
-         .Requires(() => IsServerBuild)
-         .Executes(() =>
-         {
-             var commit = new[] { RootDirectory / ".git" }
-             .SelectMany(x => Git(
-                 @"log --pretty=""%H|%an|%ae|%s""",
-                 workingDirectory: RootDirectory,
-                 logOutput: false))
-             .Select(x => x.Text)
-             .ToList()
-             .Select(x => x.Split('|'))
-             .ForEachLazy(x => Assert(x.Length == 4, "Unexpected number of sections"))
-             .Select(x => new { Hash = x[0], Name = x[1], Email = x[2], Message = x[3] })
-             .First();
+    [Parameter] readonly string CoverallsToken;
 
-             CoverallsNet(_ => _
-                 .SetArgumentConfigurator(x => x.Add("--lcov"))
-                 .SetInput(CoverageDirectory / "lcov.info")
-                 .SetDryRun(IsLocalBuild)
-                 .SetCommitBranch(GitRepository.Branch)
-                 .SetCommitId(commit.Hash)
-                 .SetCommitAuthor(commit.Name)
-                 .SetCommitEmail(commit.Email)
-                 .SetCommitMessage(commit.Message));
-         });
+    private Target PublishCoverage => _ => _
+        .DependsOn(Cover)
+        .Consumes(Cover)
+        .Executes(() =>
+        {
+            var commit = GetLastCommit();
+
+            CoverallsNet(_ => _
+                .SetDryRun(IsLocalBuild)
+                .SetRepoToken(CoverallsToken)
+                .SetArgumentConfigurator(x => x.Add("--lcov"))
+                .SetInput(CoverageDirectory / "lcov.info")
+                .SetCommitBranch(GitRepository.Branch)
+                .SetCommitId(commit.Hash)
+                .SetCommitAuthor(commit.Name)
+                .SetCommitEmail(commit.Email)
+                .SetCommitMessage(commit.Message));
+        });
+
+    private CommitInfo GetLastCommit() => new[] {RootDirectory / ".git"}
+        .SelectMany(x => Git(
+            @"log -1 --pretty=""%H|%an|%ae|%s""",
+            workingDirectory: RootDirectory,
+            logOutput: false))
+        .Take(1)
+        .Select(x => x.Text)
+        .ToList()
+        .Select(x => x.Split('|'))
+        .ForEachLazy(x => Assert(x.Length == 4, "Unexpected number of sections"))
+        .Select(x => new CommitInfo(x[0], x[1], x[2], x[3]))
+        .Single();
+
+    private class CommitInfo
+    {
+        public CommitInfo(string hash, string name, string email, string message)
+        {
+            Hash = hash;
+            Name = name;
+            Email = email;
+            Message = message;
+        }
+
+        public string Hash { get; }
+        public string Name { get; }
+        public string Email { get; }
+        public string Message { get; }
+    }
 }

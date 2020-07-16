@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoFixture.Community.AutoEF.Core\AutoFixture.Community.AutoEF.Core.csproj" />
+    <ProjectReference Include="..\..\src\AutoFixture.Community.AutoEF.SQLite\AutoFixture.Community.AutoEF.SQLite.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 

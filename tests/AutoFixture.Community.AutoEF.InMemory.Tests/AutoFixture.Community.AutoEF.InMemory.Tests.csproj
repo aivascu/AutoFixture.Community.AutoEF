@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
@@ -16,6 +16,7 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Moq" Version="4.14.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -30,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoFixture.Community.AutoEF.SQLite\AutoFixture.Community.AutoEF.SQLite.csproj" />
+    <ProjectReference Include="..\..\src\AutoFixture.Community.AutoEF.InMemory\AutoFixture.Community.AutoEF.InMemory.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 

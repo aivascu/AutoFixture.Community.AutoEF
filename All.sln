@@ -11,19 +11,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77856585-BBC0-4268-8FAF-AE66F8706127}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.Core.Tests", "src\AutoFixture.Community.AutoEF.Core.Tests\AutoFixture.Community.AutoEF.Core.Tests.csproj", "{F3D514D6-92A6-43DF-B09D-03B1FF0653BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.Core.Tests", "tests\AutoFixture.Community.AutoEF.Core.Tests\AutoFixture.Community.AutoEF.Core.Tests.csproj", "{F3D514D6-92A6-43DF-B09D-03B1FF0653BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.InMemory.Tests", "src\AutoFixture.Community.AutoEF.InMemory.Tests\AutoFixture.Community.AutoEF.InMemory.Tests.csproj", "{FB4B5E45-0ABD-4153-BCBC-7051A4A241EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.InMemory.Tests", "tests\AutoFixture.Community.AutoEF.InMemory.Tests\AutoFixture.Community.AutoEF.InMemory.Tests.csproj", "{FB4B5E45-0ABD-4153-BCBC-7051A4A241EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.SQLite.Tests", "src\AutoFixture.Community.AutoEF.SQLite.Tests\AutoFixture.Community.AutoEF.SQLite.Tests.csproj", "{E508C161-471A-43F6-BA1C-3E03BCF37291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.SQLite.Tests", "tests\AutoFixture.Community.AutoEF.SQLite.Tests\AutoFixture.Community.AutoEF.SQLite.Tests.csproj", "{E508C161-471A-43F6-BA1C-3E03BCF37291}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClasses", "src\TestClasses\TestClasses.csproj", "{B83A9097-8D31-4488-8422-9DC66C2C1CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClasses", "tests\TestClasses\TestClasses.csproj", "{B83A9097-8D31-4488-8422-9DC66C2C1CE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{85E40A94-A774-4EA1-92DF-95F9EB7BC969}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
 		GitVersion.yml = GitVersion.yml
 		lgtm.yml = lgtm.yml
 		LICENSE = LICENSE
@@ -31,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{214CB4C0-AB9E-4B88-9305-739FC0BEECD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D916DCA9-C70B-43FF-8773-6BB654007FA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuke.Community.GitHub", "src\Nuke.Community.GitHub\Nuke.Community.GitHub.csproj", "{C5338EE4-F28A-431B-B5F4-C54FD544257B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,6 +137,18 @@ Global
 		{214CB4C0-AB9E-4B88-9305-739FC0BEECD6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{214CB4C0-AB9E-4B88-9305-739FC0BEECD6}.Release|x64.ActiveCfg = Debug|Any CPU
 		{214CB4C0-AB9E-4B88-9305-739FC0BEECD6}.Release|x86.ActiveCfg = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|x64.Build.0 = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|x64.Build.0 = Release|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +158,8 @@ Global
 		{FB4B5E45-0ABD-4153-BCBC-7051A4A241EF} = {77856585-BBC0-4268-8FAF-AE66F8706127}
 		{E508C161-471A-43F6-BA1C-3E03BCF37291} = {77856585-BBC0-4268-8FAF-AE66F8706127}
 		{B83A9097-8D31-4488-8422-9DC66C2C1CE6} = {77856585-BBC0-4268-8FAF-AE66F8706127}
+		{214CB4C0-AB9E-4B88-9305-739FC0BEECD6} = {D916DCA9-C70B-43FF-8773-6BB654007FA8}
+		{C5338EE4-F28A-431B-B5F4-C54FD544257B} = {D916DCA9-C70B-43FF-8773-6BB654007FA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47E8857C-BBAB-4EC3-894A-CB6EBA7BB3E5}

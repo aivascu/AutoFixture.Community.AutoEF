@@ -16,7 +16,6 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Moq" Version="4.14.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -31,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoFixture.Community.AutoEF.InMemory\AutoFixture.Community.AutoEF.InMemory.csproj" />
+    <ProjectReference Include="..\..\src\AutoFixture.Community.AutoEF.Core\AutoFixture.Community.AutoEF.Core.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 
