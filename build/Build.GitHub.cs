@@ -7,9 +7,10 @@ using static Nuke.Community.GitHub.GitHubTasks;
 
 internal partial class Build
 {
-    [Parameter] private readonly string GitHubToken;
+    [Parameter("GitHub auth token")] private readonly string GitHubToken;
 
     Target DraftRelease => _ => _
+        .DependsOn(Publish)
         .Requires(() => GitRepository.IsGitHubRepository())
         .Executes(() =>
         {

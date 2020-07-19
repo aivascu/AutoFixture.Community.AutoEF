@@ -23,24 +23,19 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
+[DotNetVerbosityMapping]
 [GitHubActions("pull_request",
-    GitHubActionsImage.MacOsLatest,
-    GitHubActionsImage.UbuntuLatest,
     GitHubActionsImage.WindowsLatest,
-    OnPullRequestBranches = new[] {MasterBranch, DevelopBranch},
-    OnPullRequestExcludePaths = new [] {"**.md", "license"},
-    InvokedTargets = new[] {nameof(Test)},
+    OnPullRequestBranches = new[] { MasterBranch, DevelopBranch },
+    InvokedTargets = new[] { nameof(Test) },
     ImportGitHubTokenAs = nameof(GitHubToken),
-    ImportSecrets = new [] {nameof(CoverallsToken)})]
-[GitHubActions("continuous", 
-    GitHubActionsImage.MacOsLatest,
-    GitHubActionsImage.UbuntuLatest,
+    ImportSecrets = new[] { nameof(CoverallsToken) })]
+[GitHubActions("continuous",
     GitHubActionsImage.WindowsLatest,
-    OnPushBranches = new []{MasterBranch},
-    OnPushExcludePaths = new [] {"**.md", "license"},
-    InvokedTargets = new []{nameof(Test)},
+    OnPushBranches = new[] { MasterBranch },
+    InvokedTargets = new[] { nameof(Test) },
     ImportGitHubTokenAs = nameof(GitHubToken),
-    ImportSecrets = new [] {nameof(CoverallsToken)})]
+    ImportSecrets = new[] { nameof(CoverallsToken) })]
 internal partial class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -71,7 +66,7 @@ internal partial class Build : NukeBuild
 
     [Partition(2)] private readonly Partition TestPartition;
 
-    private readonly IEnumerable<string> NonLibProjects = new[] {"_build", "TestClasses"};
+    private readonly IEnumerable<string> NonLibProjects = new[] { "_build", "TestClasses" };
 
     private IEnumerable<Project> TestProjects => TestPartition.GetCurrent(Solution.GetProjects("*.Tests"));
 
@@ -154,10 +149,9 @@ internal partial class Build : NukeBuild
                 .SetFramework("netcoreapp3.0")
                 .SetReports(TestResultsDirectory / "*.xml")
                 .SetTargetDirectory(CoverageDirectory)
+                .SetReportTypes((ReportTypes)"lcov")
                 .When(IsLocalBuild, _ => _
-                    .SetReportTypes(ReportTypes.HtmlInline))
-                .When(IsServerBuild, _ => _
-                    .SetReportTypes((ReportTypes)"lcov")));
+                    .AddReportTypes(ReportTypes.HtmlInline)));
         });
 
     private Target Pack => _ => _
@@ -178,7 +172,7 @@ internal partial class Build : NukeBuild
 
     private Target Publish => _ => _
         .ProceedAfterFailure()
-        .DependsOn(Clean, Test, Pack)
+        .DependsOn(Test, Pack)
         .Consumes(Pack)
         .Requires(() => NuGetApiKey)
         .Requires(() => GitHasCleanWorkingCopy())

@@ -10,7 +10,7 @@ using static Nuke.Common.Tools.Git.GitTasks;
 
 partial class Build
 {
-    [Parameter] readonly string CoverallsToken;
+    [Parameter("Coveralls.io repo token")] readonly string CoverallsToken;
 
     private Target PublishCoverage => _ => _
         .DependsOn(Cover)
@@ -31,7 +31,7 @@ partial class Build
                 .SetCommitMessage(commit.Message));
         });
 
-    private CommitInfo GetLastCommit() => new[] {RootDirectory / ".git"}
+    private CommitInfo GetLastCommit() => new[] { RootDirectory / ".git" }
         .SelectMany(x => Git(
             @"log -1 --pretty=""%H|%an|%ae|%s""",
             workingDirectory: RootDirectory,
