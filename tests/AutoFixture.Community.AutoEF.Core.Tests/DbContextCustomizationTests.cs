@@ -1,12 +1,9 @@
 ﻿using System;
-using AutoFixture;
-using AutoFixture.AutoMoq;
-using AutoFixture.Community.AutoEF;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Xunit;
 
-namespace EntityFrameworkCore.AutoFixture.Tests.Core
+namespace AutoFixture.Community.AutoEF.Core.Tests
 {
     public class DbContextCustomizationTests
     {

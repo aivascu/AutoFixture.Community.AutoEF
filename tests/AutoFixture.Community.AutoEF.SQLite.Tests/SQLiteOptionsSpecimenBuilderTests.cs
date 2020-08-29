@@ -1,8 +1,4 @@
 ﻿using System;
-using AutoFixture;
-using AutoFixture.Community.AutoEF;
-using AutoFixture.Community.AutoEF.SQLite;
-using AutoFixture.Community.AutoEF.SQLite.Tests;
 using AutoFixture.Idioms;
 using AutoFixture.Kernel;
 using FluentAssertions;
@@ -10,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Moq;
 using Xunit;
 
-namespace EntityFrameworkCore.AutoFixture.Tests.Sqlite
+namespace AutoFixture.Community.AutoEF.SQLite.Tests
 {
     public class SQLiteOptionsSpecimenBuilderTests
     {
