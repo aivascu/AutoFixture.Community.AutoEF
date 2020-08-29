@@ -4,6 +4,7 @@
     <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
+    <RootNamespace>AutoFixture.Community.AutoEF.SQLite.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AutoFixture.Community.AutoEF.SQLite\AutoFixture.Community.AutoEF.SQLite.csproj" />
+    <ProjectReference Include="..\..\src\AutoFixture.Community.AutoEF.Sqlite\AutoFixture.Community.AutoEF.Sqlite.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 

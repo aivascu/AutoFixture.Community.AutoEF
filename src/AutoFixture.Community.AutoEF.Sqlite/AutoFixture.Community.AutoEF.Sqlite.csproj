@@ -6,6 +6,7 @@
     <Copyright>Andrei Ivascu</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>latest</LangVersion>
+    <RootNamespace>AutoFixture.Community.AutoEF.SQLite</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

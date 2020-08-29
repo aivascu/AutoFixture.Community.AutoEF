@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.InMemory", "src\AutoFixture.Community.AutoEF.InMemory\AutoFixture.Community.AutoEF.InMemory.csproj", "{00CF9231-6F74-4DCF-80E1-3F9D0C01F5FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.SQLite", "src\AutoFixture.Community.AutoEF.SQLite\AutoFixture.Community.AutoEF.SQLite.csproj", "{6093FE11-BEA9-43FD-935F-8DAD6106ECDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.Sqlite", "src\AutoFixture.Community.AutoEF.Sqlite\AutoFixture.Community.AutoEF.Sqlite.csproj", "{6093FE11-BEA9-43FD-935F-8DAD6106ECDD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77856585-BBC0-4268-8FAF-AE66F8706127}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.InMemory.Tests", "tests\AutoFixture.Community.AutoEF.InMemory.Tests\AutoFixture.Community.AutoEF.InMemory.Tests.csproj", "{FB4B5E45-0ABD-4153-BCBC-7051A4A241EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.SQLite.Tests", "tests\AutoFixture.Community.AutoEF.SQLite.Tests\AutoFixture.Community.AutoEF.SQLite.Tests.csproj", "{E508C161-471A-43F6-BA1C-3E03BCF37291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.Community.AutoEF.Sqlite.Tests", "tests\AutoFixture.Community.AutoEF.Sqlite.Tests\AutoFixture.Community.AutoEF.Sqlite.Tests.csproj", "{E508C161-471A-43F6-BA1C-3E03BCF37291}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClasses", "tests\TestClasses\TestClasses.csproj", "{B83A9097-8D31-4488-8422-9DC66C2C1CE6}"
 EndProject
