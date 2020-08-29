@@ -12,7 +12,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
     {
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldThrowArgumentException_WhenSpecimenContextNull(SqliteOptionsSpecimenBuilder builder)
+        public void Create_ShouldThrowArgumentException_WhenSpecimenContextNull(
+            SqliteOptionsSpecimenBuilder builder)
         {
             Action act = () => builder.Create(typeof(IOptionsBuilder), null);
 
@@ -21,7 +22,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnNoSpecimen_WhenRequestTypeNotDbContextOptions(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnNoSpecimen_WhenRequestTypeNotDbContextOptions(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             var obj = builder.Create(typeof(string), contextMock.Object);
 
@@ -30,7 +32,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnNoSpecimen_WhenSpecimenContextCannotResolveConnection(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnNoSpecimen_WhenSpecimenContextCannotResolveConnection(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))
@@ -43,7 +46,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnOmitSpecimen_WhenSpecimenContextSkipsConnectionResolve(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnOmitSpecimen_WhenSpecimenContextSkipsConnectionResolve(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))
@@ -56,7 +60,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnNull_WhenSpecimenContextResolvesConnectionAsNull(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnNull_WhenSpecimenContextResolvesConnectionAsNull(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))
@@ -69,7 +74,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnNoSpecimen_WhenSpecimenContextResolvesConnectionToUnexpectedType(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnNoSpecimen_WhenSpecimenContextResolvesConnectionToUnexpectedType(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))
@@ -82,7 +88,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnSqliteOptionsBuilder_WhenSpecimenContextResolvesConnection(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnSqliteOptionsBuilder_WhenSpecimenContextResolvesConnection(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))
@@ -95,7 +102,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldReturnSqliteOptionsBuilder_WithInMemoryConnectionString_WhenSpecimenContextResolvesConnection(SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
+        public void Create_ShouldReturnSqliteOptionsBuilder_WithExpectedConnectionString(
+            SqliteOptionsSpecimenBuilder builder, Mock<ISpecimenContext> contextMock)
         {
             contextMock
                 .Setup(x => x.Resolve(typeof(SqliteConnection)))

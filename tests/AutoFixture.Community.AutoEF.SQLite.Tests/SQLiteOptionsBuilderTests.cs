@@ -103,7 +103,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
             var context = new SqliteOptionsBuilder(connection)
                 .Build<TestDbContext>();
 
-            context.Extensions.Should().Contain(x => x.GetType() == typeof(SqliteOptionsExtension));
+            context.Extensions.Should()
+                .Contain(x => x.GetType() == typeof(SqliteOptionsExtension));
         }
 
         [Fact]
@@ -128,7 +129,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
                 .Build(typeof(TestDbContext))
                 .As<DbContextOptions<TestDbContext>>();
 
-            context.Extensions.Should().Contain(x => x.GetType() == typeof(SqliteOptionsExtension));
+            context.Extensions.Should()
+                .Contain(x => x.GetType() == typeof(SqliteOptionsExtension));
         }
 
         [Fact]

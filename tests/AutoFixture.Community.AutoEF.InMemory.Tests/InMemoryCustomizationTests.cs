@@ -18,11 +18,11 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
             Fixture fixture)
         {
             fixture.Customize(
-                    new CompositeCustomization(
-                        customization,
-                        new ConstructorCustomization(
-                            typeof(TestDbContext),
-                            new GreedyConstructorQuery())));
+                new CompositeCustomization(
+                    customization,
+                    new ConstructorCustomization(
+                        typeof(TestDbContext),
+                        new GreedyConstructorQuery())));
 
             using var context = fixture.Create<TestDbContext>();
             context.Database.EnsureCreated();
@@ -37,7 +37,7 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
         [AutoInMemoryDomainData]
         public async Task SaveChangesAsync_ShouldCreateCustomerRecord([Greedy] TestDbContext context)
         {
-            using (context)
+            await using (context)
             {
                 await context.Database.EnsureCreatedAsync();
 

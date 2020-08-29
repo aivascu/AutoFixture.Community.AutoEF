@@ -70,7 +70,8 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 
         [Theory]
         [AutoData]
-        [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "Asserts the internal state of EF storage")]
+        [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.",
+            Justification = "Asserts the internal state of EF storage")]
         public void GenericBuild_ShouldCreateDbContextOptions_WithInMemoryExtension_WithName(string expected)
         {
             var extension = new InMemoryOptionsBuilder(expected)
@@ -93,7 +94,8 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 
         [Theory]
         [AutoData]
-        [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "Asserts the internal state of EF storage")]
+        [SuppressMessage("Usage", "EF1001:Internal EF Core API usage.",
+            Justification = "Asserts the internal state of EF storage")]
         public void Build_ShouldCreateDbContextOptions_WithInMemoryExtension_WithName(string expected)
         {
             var extension = new InMemoryOptionsBuilder(expected)
@@ -106,6 +108,8 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
             extension.StoreName.Should().Be(expected);
         }
 
-        private abstract class AbstractDbContext : DbContext { }
+        private abstract class AbstractDbContext : DbContext
+        {
+        }
     }
 }

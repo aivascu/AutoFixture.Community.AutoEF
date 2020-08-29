@@ -14,7 +14,8 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
     {
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldThrowArgumentException_WhenSpecimenContextIsNull(DbContextOptionsSpecimenBuilder builder)
+        public void Create_ShouldThrowArgumentException_WhenSpecimenContextIsNull(
+            DbContextOptionsSpecimenBuilder builder)
         {
             Action act = () => builder.Create(typeof(DbContextOptions<TestDbContext>), null);
 
@@ -68,7 +69,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
             Mock<ISpecimenContext> contextMock)
         {
             contextMock.Setup(x => x.Resolve(typeof(IOptionsBuilder)))
-                       .Returns(new NoSpecimen());
+                .Returns(new NoSpecimen());
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
@@ -82,7 +83,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
             Mock<ISpecimenContext> contextMock)
         {
             contextMock.Setup(x => x.Resolve(typeof(IOptionsBuilder)))
-                       .Returns("Hello World");
+                .Returns("Hello World");
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
@@ -96,7 +97,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
             Mock<ISpecimenContext> contextMock)
         {
             contextMock.Setup(x => x.Resolve(typeof(IOptionsBuilder)))
-                       .Returns(new OmitSpecimen());
+                .Returns(new OmitSpecimen());
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
@@ -110,7 +111,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
             Mock<ISpecimenContext> contextMock)
         {
             contextMock.Setup(x => x.Resolve(typeof(IOptionsBuilder)))
-                       .Returns(null);
+                .Returns(null);
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
@@ -120,15 +121,15 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
         [Theory]
         [AutoDomainData]
         public void Create_ShouldBeOfRequestedType_WhenContextResolvesOptionsBuilder(
-           DbContextOptionsSpecimenBuilder builder,
-           Mock<ISpecimenContext> contextMock,
-           Mock<IOptionsBuilder> optionsBuilderMock)
+            DbContextOptionsSpecimenBuilder builder,
+            Mock<ISpecimenContext> contextMock,
+            Mock<IOptionsBuilder> optionsBuilderMock)
         {
             optionsBuilderMock.Setup(x => x.Build(typeof(TestDbContext)))
-                              .Returns(new DbContextOptions<TestDbContext>());
+                .Returns(new DbContextOptions<TestDbContext>());
 
             contextMock.Setup(x => x.Resolve(typeof(IOptionsBuilder)))
-                       .Returns(optionsBuilderMock.Object);
+                .Returns(optionsBuilderMock.Object);
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 

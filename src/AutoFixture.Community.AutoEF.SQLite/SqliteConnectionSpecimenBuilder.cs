@@ -9,7 +9,7 @@ namespace AutoFixture.Community.AutoEF.SQLite
         public SqliteConnectionSpecimenBuilder(IRequestSpecification connectionSpecification)
         {
             this.ConnectionSpecification = connectionSpecification
-                ?? throw new ArgumentNullException(nameof(connectionSpecification));
+                                           ?? throw new ArgumentNullException(nameof(connectionSpecification));
         }
 
         public SqliteConnectionSpecimenBuilder()

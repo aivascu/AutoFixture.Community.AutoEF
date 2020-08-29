@@ -6,8 +6,6 @@ namespace AutoFixture.Community.AutoEF
 {
     public abstract class OptionsBuilder : IOptionsBuilder
     {
-        public abstract DbContextOptions<TContext> Build<TContext>() where TContext : DbContext;
-
         public virtual object Build(Type type)
         {
             if (type is null)
@@ -29,5 +27,7 @@ namespace AutoFixture.Community.AutoEF
                 .MakeGenericMethod(type)
                 .Invoke(this, Array.Empty<object>());
         }
+
+        public abstract DbContextOptions<TContext> Build<TContext>() where TContext : DbContext;
     }
 }

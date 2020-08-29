@@ -9,7 +9,7 @@ namespace AutoFixture.Community.AutoEF.SQLite
         public SqliteOptionsSpecimenBuilder(IRequestSpecification optionsBuilderSpecification)
         {
             this.OptionsBuilderSpecification = optionsBuilderSpecification
-                ?? throw new ArgumentNullException(nameof(optionsBuilderSpecification));
+                                               ?? throw new ArgumentNullException(nameof(optionsBuilderSpecification));
         }
 
         public SqliteOptionsSpecimenBuilder()

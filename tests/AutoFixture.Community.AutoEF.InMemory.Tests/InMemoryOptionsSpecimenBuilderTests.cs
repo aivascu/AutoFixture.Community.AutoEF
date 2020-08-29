@@ -9,7 +9,8 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 {
     public class InMemoryOptionsSpecimenBuilderTests
     {
-        [Theory(DisplayName = "Create should create InMemoryOptionsBuilder instance when request type is IOptionsBuilder")]
+        [Theory(DisplayName =
+            "Create should create InMemoryOptionsBuilder instance when request type is IOptionsBuilder")]
         [AutoDomainData]
         public void Create_ShouldCreateInMemoryOptionsBuilder_WhenRequestTypeIsOptionsBuilderInterface(
             Mock<ISpecimenContext> context,

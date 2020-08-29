@@ -5,18 +5,18 @@ namespace AutoFixture.Community.AutoEF.InMemory
 {
     public class InMemoryOptionsSpecimenBuilder : ISpecimenBuilder
     {
-        public IRequestSpecification OptionsSpecification { get; }
-
         public InMemoryOptionsSpecimenBuilder(IRequestSpecification optionsSpecification)
         {
             this.OptionsSpecification = optionsSpecification
-                ?? throw new ArgumentNullException(nameof(optionsSpecification));
+                                        ?? throw new ArgumentNullException(nameof(optionsSpecification));
         }
 
         public InMemoryOptionsSpecimenBuilder()
             : this(new IsOptionsBuilder())
         {
         }
+
+        public IRequestSpecification OptionsSpecification { get; }
 
         public object Create(object request, ISpecimenContext context)
         {

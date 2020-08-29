@@ -15,7 +15,7 @@ namespace AutoFixture.Community.AutoEF
         public DbContextOptionsSpecimenBuilder(IRequestSpecification optionsSpecification)
         {
             this.OptionsSpecification = optionsSpecification
-                ?? throw new ArgumentNullException(nameof(optionsSpecification));
+                                        ?? throw new ArgumentNullException(nameof(optionsSpecification));
         }
 
         public IRequestSpecification OptionsSpecification { get; }
@@ -49,7 +49,7 @@ namespace AutoFixture.Community.AutoEF
             if (!(optionsBuilderObj is IOptionsBuilder optionsBuilder))
             {
                 return new NoSpecimen();
-            } 
+            }
 
             var contextType = type.GetGenericArguments().Single();
             return optionsBuilder.Build(contextType);
@@ -60,9 +60,9 @@ namespace AutoFixture.Community.AutoEF
             public bool IsSatisfiedBy(object request)
             {
                 return request is Type type
-                    && !type.IsAbstract
-                    && type.IsGenericType
-                    && typeof(DbContextOptions<>) == type.GetGenericTypeDefinition();
+                       && !type.IsAbstract
+                       && type.IsGenericType
+                       && typeof(DbContextOptions<>) == type.GetGenericTypeDefinition();
             }
         }
     }

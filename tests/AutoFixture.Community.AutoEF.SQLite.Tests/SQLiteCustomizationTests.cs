@@ -30,31 +30,39 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
                 customer.Order(item, 5);
                 context.SaveChanges();
 
-                context.Orders.Should().Contain(x => x.CustomerId == customer.Id && x.ItemId == item.Id);
+                context.Orders.Should()
+                    .Contain(x => x.CustomerId == customer.Id && x.ItemId == item.Id);
             }
         }
 
         [Theory]
         [AutoData]
-        public void Customize_ShouldAddOptionsBuilderToFixture(Fixture fixture, SqliteContextCustomization customization)
+        public void Customize_ShouldAddOptionsBuilderToFixture(
+            Fixture fixture,
+            SqliteContextCustomization customization)
         {
             fixture.Customize(customization);
 
-            fixture.Customizations.Should().ContainSingle(x => x.GetType() == typeof(SqliteOptionsSpecimenBuilder));
+            fixture.Customizations.Should()
+                .ContainSingle(x => x.GetType() == typeof(SqliteOptionsSpecimenBuilder));
         }
 
         [Theory]
         [AutoData]
-        public void Customize_ShouldAddConnectionBuilderToFixture(Fixture fixture, SqliteContextCustomization customization)
+        public void Customize_ShouldAddConnectionBuilderToFixture(
+            Fixture fixture,
+            SqliteContextCustomization customization)
         {
             fixture.Customize(customization);
 
-            fixture.Customizations.Should().ContainSingle(x => x.GetType() == typeof(SqliteConnectionSpecimenBuilder));
+            fixture.Customizations.Should()
+                .ContainSingle(x => x.GetType() == typeof(SqliteConnectionSpecimenBuilder));
         }
 
         [Theory]
         [AutoData]
-        public void Customize_ForNullFixture_ShouldThrow(SqliteContextCustomization customization)
+        public void Customize_ForNullFixture_ShouldThrow(
+            SqliteContextCustomization customization)
         {
             Action act = () => customization.Customize(default);
 
@@ -63,7 +71,8 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoSQLiteDomainData]
-        public void Customize_ForCustomDbContext_ShouldReturnContextInstance([Greedy] TestCustomDbContext context)
+        public void Customize_ForCustomDbContext_ShouldReturnContextInstance(
+            [Greedy] TestCustomDbContext context)
         {
             context.Should().NotBeNull()
                 .And.BeOfType<TestCustomDbContext>();
