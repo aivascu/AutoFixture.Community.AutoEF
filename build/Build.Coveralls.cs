@@ -10,7 +10,8 @@ using static Nuke.Common.Tools.Git.GitTasks;
 
 partial class Build
 {
-    [Parameter("Coveralls.io repo token")] readonly string CoverallsToken;
+    [Parameter("Coveralls.io repo token")]
+    readonly string CoverallsToken;
 
     private Target PublishCoverage => _ => _
         .DependsOn(Cover)

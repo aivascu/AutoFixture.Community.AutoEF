@@ -32,10 +32,10 @@ using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
     ImportSecrets = new[] { nameof(CoverallsToken) })]
 [GitHubActions("continuous",
     GitHubActionsImage.WindowsLatest,
-    OnPushBranches = new[] { MasterBranch },
-    InvokedTargets = new[] { nameof(Test) },
+    OnPushBranches = new[] { MasterBranch, DevelopBranch },
+    InvokedTargets = new[] { nameof(Test), nameof(Pack), nameof(Publish) },
     ImportGitHubTokenAs = nameof(GitHubToken),
-    ImportSecrets = new[] { nameof(CoverallsToken) })]
+    ImportSecrets = new[] { nameof(CoverallsToken), nameof(NuGetApiKey) })]
 internal partial class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -53,18 +53,26 @@ internal partial class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("NuGet API Key")] private readonly string NuGetApiKey;
+    [Parameter("NuGet API Key")]
+    private readonly string NuGetApiKey;
 
     [Parameter("NuGet Source for Packages")]
     private readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
-    [Required] [Solution] private readonly Solution Solution;
+    [Required]
+    [Solution]
+    private readonly Solution Solution;
 
-    [Required] [GitRepository] private readonly GitRepository GitRepository;
+    [Required]
+    [GitRepository]
+    private readonly GitRepository GitRepository;
 
-    [Required] [GitVersion] readonly GitVersion GitVersion;
+    [Required]
+    [GitVersion]
+    readonly GitVersion GitVersion;
 
-    [Partition(2)] private readonly Partition TestPartition;
+    [Partition(2)]
+    private readonly Partition TestPartition;
 
     private readonly IEnumerable<string> NonLibProjects = new[] { "_build", "TestClasses" };
 
@@ -177,13 +185,11 @@ internal partial class Build : NukeBuild
         .Requires(() => NuGetApiKey)
         .Requires(() => GitHasCleanWorkingCopy())
         .Requires(() => Configuration.Equals(Configuration.Release))
-        .Requires(() => GitRepository.Branch.EqualsOrdinalIgnoreCase(MasterBranch)
-                        || GitRepository.Branch.EqualsOrdinalIgnoreCase(DevelopBranch)
-                        || GitRepository.Branch.StartsWithOrdinalIgnoreCase(ReleaseBranchPrefix)
-                        || GitRepository.Branch.StartsWithOrdinalIgnoreCase(HotfixBranchPrefix))
         .Executes(() =>
         {
-            Assert(PackageFiles.Count == 4, "Unexpected number of packages.");
+            Assert(
+                PackageFiles.Count == 3,
+                 $"Unexpected number of packages. Expected 3, actuallty got {PackageFiles.Count}.");
 
             DotNetNuGetPush(s => s
                     .SetSource(NuGetSource)

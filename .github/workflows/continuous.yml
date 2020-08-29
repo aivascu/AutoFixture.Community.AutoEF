@@ -20,6 +20,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   windows-latest:
@@ -27,12 +28,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd Test'
-        run: ./build.cmd Test
+      - name: Run './build.cmd Test Pack Publish'
+        run: ./build.cmd Test Pack Publish
         env:
             GitHubToken: ${{ secrets.GITHUB_TOKEN }}
             CoverallsToken: ${{ secrets.CoverallsToken }}
+            NuGetApiKey: ${{ secrets.NuGetApiKey }}
       - uses: actions/upload-artifact@v1
         with:
           name: testresults
           path: testresults
+      - uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: artifacts
