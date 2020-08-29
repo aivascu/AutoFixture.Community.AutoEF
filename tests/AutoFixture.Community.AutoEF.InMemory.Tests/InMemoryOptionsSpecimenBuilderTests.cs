@@ -23,15 +23,6 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Create_ShouldThrow_WhenSpecimenContextIsNull(InMemoryOptionsSpecimenBuilder builder)
-        {
-            Action act = () => builder.Create(typeof(IOptionsBuilder), null);
-
-            act.Should().ThrowExactly<ArgumentNullException>();
-        }
-
-        [Theory]
-        [AutoDomainData]
         public void Create_ShouldReturnNoSpecimen_WhenRequestTypeNotOptionsBuilderInterface(
             Mock<ISpecimenContext> context,
             InMemoryOptionsSpecimenBuilder builder)

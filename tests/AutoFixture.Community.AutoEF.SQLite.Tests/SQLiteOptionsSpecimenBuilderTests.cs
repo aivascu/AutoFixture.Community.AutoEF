@@ -55,7 +55,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
             var obj = builder.Create(typeof(IOptionsBuilder), contextMock.Object);
 
-            obj.Should().BeOfType<OmitSpecimen>();
+            obj.Should().BeOfType<NoSpecimen>();
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
             var obj = builder.Create(typeof(IOptionsBuilder), contextMock.Object);
 
-            obj.Should().BeNull();
+            obj.Should().BeOfType<NoSpecimen>();
         }
 
         [Theory]

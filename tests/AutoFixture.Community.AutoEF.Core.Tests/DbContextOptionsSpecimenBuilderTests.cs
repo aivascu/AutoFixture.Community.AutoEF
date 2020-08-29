@@ -101,7 +101,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
-            actual.Should().BeOfType<OmitSpecimen>();
+            actual.Should().BeOfType<NoSpecimen>();
         }
 
         [Theory]
@@ -115,7 +115,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
 
             var actual = builder.Create(typeof(DbContextOptions<TestDbContext>), contextMock.Object);
 
-            actual.Should().BeNull();
+            actual.Should().BeOfType<NoSpecimen>();
         }
 
         [Theory]

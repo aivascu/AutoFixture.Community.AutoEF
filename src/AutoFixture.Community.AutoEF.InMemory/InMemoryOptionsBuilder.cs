@@ -8,7 +8,7 @@ namespace AutoFixture.Community.AutoEF.InMemory
         public InMemoryOptionsBuilder(string databaseName)
         {
             this.DatabaseName = databaseName
-                                ?? throw new ArgumentNullException(nameof(databaseName));
+                ?? throw new ArgumentNullException(nameof(databaseName));
         }
 
         public InMemoryOptionsBuilder()

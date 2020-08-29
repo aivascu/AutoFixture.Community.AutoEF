@@ -9,11 +9,11 @@ namespace AutoFixture.Community.AutoEF.SQLite
         public SqliteOptionsSpecimenBuilder(IRequestSpecification optionsBuilderSpecification)
         {
             this.OptionsBuilderSpecification = optionsBuilderSpecification
-                                               ?? throw new ArgumentNullException(nameof(optionsBuilderSpecification));
+                ?? throw new ArgumentNullException(nameof(optionsBuilderSpecification));
         }
 
         public SqliteOptionsSpecimenBuilder()
-            : this(new IsOptionsBuilder())
+            : this(new OptionsBuilderSpecification())
         {
         }
 
@@ -33,27 +33,9 @@ namespace AutoFixture.Community.AutoEF.SQLite
 
             var sqliteConnectionObj = context.Resolve(typeof(SqliteConnection));
 
-            if (sqliteConnectionObj is NoSpecimen || sqliteConnectionObj is OmitSpecimen || sqliteConnectionObj is null)
-            {
-                return sqliteConnectionObj;
-            }
-
-            if (!(sqliteConnectionObj is SqliteConnection sqliteConnection))
-            {
-                return new NoSpecimen();
-            }
-
-            return new SqliteOptionsBuilder(sqliteConnection);
-        }
-
-        private class IsOptionsBuilder : IRequestSpecification
-        {
-            public bool IsSatisfiedBy(object request)
-            {
-                return request is Type type
-                       && type.IsInterface
-                       && type == typeof(IOptionsBuilder);
-            }
+            return sqliteConnectionObj is SqliteConnection sqliteConnection
+                ? (object)new SqliteOptionsBuilder(sqliteConnection)
+                : new NoSpecimen();
         }
     }
 }
