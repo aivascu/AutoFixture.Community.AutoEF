@@ -99,8 +99,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         [Fact]
         public void GenericBuild_ShouldCreateDbContextOptions_WithSqliteExtension()
         {
-            var connectionString = "Data Source=:memory:";
-            var connection = new SqliteConnection(connectionString);
+            var connection = new SqliteConnection("Data Source=:memory:");
             var context = new SqliteOptionsBuilder(connection)
                 .Build<TestDbContext>();
 
@@ -110,7 +109,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         [Fact]
         public void GenericBuild_ShouldCreateDbContextOptions_WithSqliteExtension_WithConnectionString()
         {
-            var connectionString = "Data Source=:memory:";
+            const string connectionString = "Data Source=:memory:";
             var connection = new SqliteConnection(connectionString);
             var extension = new SqliteOptionsBuilder(connection)
                 .Build<TestDbContext>()
@@ -124,8 +123,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         [Fact]
         public void Build_ShouldCreateDbContextOptions_WithSqliteExtension()
         {
-            var connectionString = "Data Source=:memory:";
-            var connection = new SqliteConnection(connectionString);
+            var connection = new SqliteConnection("Data Source=:memory:");
             var context = new SqliteOptionsBuilder(connection)
                 .Build(typeof(TestDbContext))
                 .As<DbContextOptions<TestDbContext>>();
@@ -136,7 +134,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         [Fact]
         public void Build_ShouldCreateDbContextOptions_WithSqliteExtension_WithConnectionString()
         {
-            var connectionString = "Data Source=:memory:";
+            const string connectionString = "Data Source=:memory:";
             var connection = new SqliteConnection(connectionString);
             var extension = new SqliteOptionsBuilder(connection)
                 .Build(typeof(TestDbContext))
