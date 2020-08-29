@@ -24,15 +24,13 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
                             typeof(TestDbContext),
                             new GreedyConstructorQuery())));
 
-            using (var context = fixture.Create<TestDbContext>())
-            {
-                context.Database.EnsureCreated();
+            using var context = fixture.Create<TestDbContext>();
+            context.Database.EnsureCreated();
 
-                context.Customers.Add(new Customer("John Doe"));
-                context.SaveChanges();
+            context.Customers.Add(new Customer("John Doe"));
+            context.SaveChanges();
 
-                context.Customers.Should().Contain(x => x.Name == "John Doe");
-            }
+            context.Customers.Should().Contain(x => x.Name == "John Doe");
         }
 
         [Theory]

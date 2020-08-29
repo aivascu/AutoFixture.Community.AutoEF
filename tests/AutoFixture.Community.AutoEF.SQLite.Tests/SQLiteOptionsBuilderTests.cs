@@ -21,14 +21,12 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         {
             fixture.Customizations.Add(specimenBuilder);
 
-            using (var connection = fixture.Freeze<SqliteConnection>())
-            {
-                var builder = fixture.Create<SqliteOptionsBuilder>();
+            using var connection = fixture.Freeze<SqliteConnection>();
+            var builder = fixture.Create<SqliteOptionsBuilder>();
 
-                var options = builder.Build(typeof(TestDbContext));
+            var options = builder.Build(typeof(TestDbContext));
 
-                options.Should().BeOfType<DbContextOptions<TestDbContext>>();
-            }
+            options.Should().BeOfType<DbContextOptions<TestDbContext>>();
         }
 
         [Theory]
@@ -39,14 +37,12 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         {
             fixture.Customizations.Add(specimenBuilder);
 
-            using (var connection = fixture.Freeze<SqliteConnection>())
-            {
-                var builder = fixture.Create<SqliteOptionsBuilder>();
+            using var connection = fixture.Freeze<SqliteConnection>();
+            var builder = fixture.Create<SqliteOptionsBuilder>();
 
-                Action action = () => builder.Build(null);
+            Action action = () => builder.Build(null);
 
-                action.Should().Throw<ArgumentNullException>();
-            }
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -57,14 +53,12 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         {
             fixture.Customizations.Add(specimenBuilder);
 
-            using (var connection = fixture.Freeze<SqliteConnection>())
-            {
-                var builder = fixture.Create<SqliteOptionsBuilder>();
+            using var connection = fixture.Freeze<SqliteConnection>();
+            var builder = fixture.Create<SqliteOptionsBuilder>();
 
-                Action action = () => builder.Build(typeof(string));
+            Action action = () => builder.Build(typeof(string));
 
-                action.Should().Throw<ArgumentException>();
-            }
+            action.Should().Throw<ArgumentException>();
         }
 
         [Theory]
@@ -75,14 +69,12 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
         {
             fixture.Customizations.Add(specimenBuilder);
 
-            using (var connection = fixture.Freeze<SqliteConnection>())
-            {
-                var builder = fixture.Create<SqliteOptionsBuilder>();
+            using var connection = fixture.Freeze<SqliteConnection>();
+            var builder = fixture.Create<SqliteOptionsBuilder>();
 
-                Action action = () => builder.Build(typeof(AbstractDbContext));
+            Action action = () => builder.Build(typeof(AbstractDbContext));
 
-                action.Should().Throw<ArgumentException>();
-            }
+            action.Should().Throw<ArgumentException>();
         }
 
         [Theory]
