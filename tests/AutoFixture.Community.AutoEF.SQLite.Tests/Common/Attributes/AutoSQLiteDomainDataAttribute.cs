@@ -2,11 +2,11 @@
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
-    public class AutoSQLiteDomainDataAttribute : AutoDataAttribute
+    public class AutoSqliteDomainDataAttribute : AutoDataAttribute
     {
-        public AutoSQLiteDomainDataAttribute()
+        public AutoSqliteDomainDataAttribute()
             : base(() => new Fixture()
-                .Customize(new SQLiteDomainCustomization()))
+                .Customize(new SqliteDomainCustomization()))
         {
         }
     }

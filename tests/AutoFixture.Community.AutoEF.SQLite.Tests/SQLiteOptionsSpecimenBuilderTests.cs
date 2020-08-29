@@ -8,7 +8,7 @@ using Xunit;
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
-    public class SQLiteOptionsSpecimenBuilderTests
+    public class SqliteOptionsSpecimenBuilderTests
     {
         [Theory]
         [AutoDomainData]

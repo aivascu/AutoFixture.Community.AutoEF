@@ -11,7 +11,7 @@ using Xunit;
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
-    public class SQLiteOptionsBuilderTests
+    public class SqliteOptionsBuilderTests
     {
         [Theory]
         [AutoData]

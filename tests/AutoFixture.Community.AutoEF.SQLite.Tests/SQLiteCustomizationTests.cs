@@ -8,10 +8,10 @@ using Xunit;
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
-    public class SQLiteCustomizationTests
+    public class SqliteCustomizationTests
     {
         [Theory]
-        [AutoSQLiteDomainData]
+        [AutoSqliteDomainData]
         public void Customize_ShouldProvideSqliteContext(
             [Frozen] SqliteConnection connection,
             [Greedy] TestDbContext context,
@@ -70,7 +70,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         }
 
         [Theory]
-        [AutoSQLiteDomainData]
+        [AutoSqliteDomainData]
         public void Customize_ForCustomDbContext_ShouldReturnContextInstance(
             [Greedy] TestCustomDbContext context)
         {
@@ -79,7 +79,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         }
 
         [Theory]
-        [AutoSQLiteDomainData]
+        [AutoSqliteDomainData]
         public void Customize_ForCustomDbContext_ProvideValueForOtherParameters(
             [Greedy] TestCustomDbContext context)
         {

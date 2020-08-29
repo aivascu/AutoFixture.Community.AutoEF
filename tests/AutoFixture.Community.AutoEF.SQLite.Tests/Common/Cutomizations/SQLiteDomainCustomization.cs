@@ -2,9 +2,9 @@
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
-    public class SQLiteDomainCustomization : CompositeCustomization
+    public class SqliteDomainCustomization : CompositeCustomization
     {
-        public SQLiteDomainCustomization()
+        public SqliteDomainCustomization()
             : base(
                 new IgnoredVirtualMembersCustomization(),
                 new SqliteContextCustomization(),
