@@ -1,4 +1,4 @@
-﻿namespace AutoFixture.Community.AutoEF.SQLite.Tests
+﻿namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class IgnoredVirtualMembersCustomization : ICustomization
     {

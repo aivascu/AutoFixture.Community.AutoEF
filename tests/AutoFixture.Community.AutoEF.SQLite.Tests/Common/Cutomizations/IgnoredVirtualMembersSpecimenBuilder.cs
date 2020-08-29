@@ -2,7 +2,7 @@
 using System.Reflection;
 using AutoFixture.Kernel;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class IgnoredVirtualMembersSpecimenBuilder : ISpecimenBuilder
     {

@@ -1,6 +1,6 @@
 ﻿using AutoFixture.AutoMoq;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class SQLiteDomainCustomization : CompositeCustomization
     {

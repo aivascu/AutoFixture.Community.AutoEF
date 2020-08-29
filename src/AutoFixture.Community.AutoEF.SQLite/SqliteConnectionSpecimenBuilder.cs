@@ -2,7 +2,7 @@
 using AutoFixture.Kernel;
 using Microsoft.Data.Sqlite;
 
-namespace AutoFixture.Community.AutoEF.SQLite
+namespace AutoFixture.Community.AutoEF.Sqlite
 {
     public class SqliteConnectionSpecimenBuilder : ISpecimenBuilder
     {

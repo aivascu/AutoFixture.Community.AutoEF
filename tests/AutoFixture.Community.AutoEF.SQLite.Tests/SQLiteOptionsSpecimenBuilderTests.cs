@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Moq;
 using Xunit;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class SQLiteOptionsSpecimenBuilderTests
     {

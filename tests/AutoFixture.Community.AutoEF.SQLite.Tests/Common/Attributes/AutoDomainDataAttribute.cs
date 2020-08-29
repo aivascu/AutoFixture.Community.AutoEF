@@ -1,7 +1,7 @@
 ﻿using AutoFixture.AutoMoq;
 using AutoFixture.Xunit2;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class AutoDomainDataAttribute : AutoDataAttribute
     {

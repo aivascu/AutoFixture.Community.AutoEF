@@ -2,7 +2,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace AutoFixture.Community.AutoEF.SQLite
+namespace AutoFixture.Community.AutoEF.Sqlite
 {
     public class SqliteOptionsBuilder : OptionsBuilder
     {

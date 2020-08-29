@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;
 using TestClasses;
 using Xunit;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class SQLiteOptionsBuilderTests
     {

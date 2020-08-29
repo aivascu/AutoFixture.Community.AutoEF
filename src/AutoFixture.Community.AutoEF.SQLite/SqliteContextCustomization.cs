@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoFixture.Community.AutoEF.SQLite
+namespace AutoFixture.Community.AutoEF.Sqlite
 {
     public class SqliteContextCustomization : DbContextCustomization
     {

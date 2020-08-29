@@ -6,7 +6,7 @@ using TestClasses;
 using TestClasses.Entities;
 using Xunit;
 
-namespace AutoFixture.Community.AutoEF.SQLite.Tests
+namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
     public class SQLiteCustomizationTests
     {
