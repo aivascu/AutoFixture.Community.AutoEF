@@ -9,13 +9,16 @@ namespace AutoFixture.Community.AutoEF.SQLite
         public SqliteOptionsBuilder(SqliteConnection connection)
         {
             this.Connection = connection
-                ?? throw new ArgumentNullException(nameof(connection));
+                              ?? throw new ArgumentNullException(nameof(connection));
         }
 
         public SqliteConnection Connection { get; }
 
-        public override DbContextOptions<TContext> Build<TContext>() => new DbContextOptionsBuilder<TContext>()
-            .UseSqlite(this.Connection)
-            .Options;
+        public override DbContextOptions<TContext> Build<TContext>()
+        {
+            return new DbContextOptionsBuilder<TContext>()
+                .UseSqlite(this.Connection)
+                .Options;
+        }
     }
 }
