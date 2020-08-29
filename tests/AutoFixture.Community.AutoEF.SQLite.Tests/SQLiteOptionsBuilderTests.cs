@@ -79,7 +79,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoData]
-        public void Ctors_ShouldInitializeProperties(ConstructorInitializedMemberAssertion assertion)
+        public void Constructors_ShouldInitializeProperties(ConstructorInitializedMemberAssertion assertion)
         {
             var members = typeof(SqliteOptionsBuilder).GetConstructors();
 
@@ -88,7 +88,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoData]
-        public void Ctors_ShouldReceiveInitializedParameters(Fixture fixture, GuardClauseAssertion assertion)
+        public void Constructors_ShouldReceiveInitializedParameters(Fixture fixture, GuardClauseAssertion assertion)
         {
             fixture.Inject(new SqliteConnection("Data Source=:memory:"));
             var members = typeof(SqliteOptionsBuilder).GetConstructors();

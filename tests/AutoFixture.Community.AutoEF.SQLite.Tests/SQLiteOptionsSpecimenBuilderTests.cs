@@ -108,7 +108,7 @@ namespace AutoFixture.Community.AutoEF.SQLite.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Ctors_ShouldReceiveInitializedParameters(Fixture fixture)
+        public void Constructors_ShouldReceiveInitializedParameters(Fixture fixture)
         {
             var assertion = new GuardClauseAssertion(fixture);
             var members = typeof(SqliteOptionsSpecimenBuilder).GetConstructors();

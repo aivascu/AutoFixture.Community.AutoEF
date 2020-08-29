@@ -137,7 +137,7 @@ namespace AutoFixture.Community.AutoEF.Core.Tests
 
         [Theory]
         [AutoDomainData]
-        public void Ctors_ShouldReceiveInitializedParameters(GuardClauseAssertion assertion)
+        public void Constructors_ShouldReceiveInitializedParameters(GuardClauseAssertion assertion)
         {
             var members = typeof(DbContextOptionsSpecimenBuilder).GetConstructors();
 

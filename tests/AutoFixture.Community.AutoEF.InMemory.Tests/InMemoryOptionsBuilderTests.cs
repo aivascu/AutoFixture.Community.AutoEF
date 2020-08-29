@@ -51,7 +51,7 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 
         [Theory]
         [AutoData]
-        public void Ctors_ShouldReceiveInitializedParameters(Fixture fixture)
+        public void Constructors_ShouldReceiveInitializedParameters(Fixture fixture)
         {
             var assertion = new GuardClauseAssertion(fixture);
             var members = typeof(InMemoryOptionsBuilder).GetConstructors();
