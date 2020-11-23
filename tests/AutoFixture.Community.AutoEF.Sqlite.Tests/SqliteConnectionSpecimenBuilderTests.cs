@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoFixture.Idioms;
 using AutoFixture.Kernel;
 using FluentAssertions;
@@ -13,7 +13,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         [Theory]
         [AutoDomainData]
         public void Create_ShouldThrowArgumentException_WhenSpecimenContextIsNull(
-            SqliteConnectionSpecimenBuilder builder)
+            SqliteConnectionBuilder builder)
         {
             Action act = () => builder.Create(typeof(SqliteConnection), null);
 
@@ -24,7 +24,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         [AutoDomainData]
         public void Create_ShouldReturnNoSpecimen_WhenRequestTypeNotSqliteConnection(
             Mock<ISpecimenContext> contextMock,
-            SqliteConnectionSpecimenBuilder builder)
+            SqliteConnectionBuilder builder)
         {
             var noSpecimen = builder.Create(typeof(string), contextMock.Object);
 
@@ -34,8 +34,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         [Theory]
         [AutoDomainData]
         public void Create_ShouldReturnSqliteConnectionInstance_WhenRequestTypeIsSqliteConnection(
-            Mock<ISpecimenContext> contextMock,
-            SqliteConnectionSpecimenBuilder builder)
+            Mock<ISpecimenContext> contextMock, SqliteConnectionBuilder builder)
         {
             var noSpecimen = builder.Create(typeof(SqliteConnection), contextMock.Object);
 
@@ -46,7 +45,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         [AutoDomainData]
         public void Create_ShouldCreateSqliteConnection_WithConnectionString_WhenRequestTypeIsSqliteConnection(
             Mock<ISpecimenContext> contextMock,
-            SqliteConnectionSpecimenBuilder builder)
+            SqliteConnectionBuilder builder)
         {
             var connection = builder.Create(typeof(SqliteConnection), contextMock.Object);
 
@@ -57,7 +56,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
         [AutoDomainData]
         public void Constructors_ShouldReceiveInitializedParameters(GuardClauseAssertion assertion)
         {
-            var members = typeof(SqliteConnectionSpecimenBuilder).GetConstructors();
+            var members = typeof(SqliteConnectionBuilder).GetConstructors();
 
             assertion.Verify(members);
         }

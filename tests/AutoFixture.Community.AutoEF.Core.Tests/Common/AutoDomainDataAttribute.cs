@@ -1,4 +1,4 @@
-﻿using AutoFixture.AutoMoq;
+using AutoFixture.AutoMoq;
 using AutoFixture.Xunit2;
 
 namespace AutoFixture.Community.AutoEF.Core.Tests

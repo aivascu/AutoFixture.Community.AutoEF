@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
@@ -11,20 +11,18 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 {
     public class InMemoryCustomizationTests
     {
-        [Theory]
-        [AutoData]
-        public void SaveChanges_ShouldCreateCustomerRecord(
-            InMemoryContextCustomization customization,
-            Fixture fixture)
+        [Fact]
+        public void SaveChanges_ShouldCreateCustomerRecord()
         {
-            fixture.Customize(
-                new CompositeCustomization(
-                    customization,
-                    new ConstructorCustomization(
-                        typeof(TestDbContext),
-                        new GreedyConstructorQuery())));
+            var context = new Fixture()
+                .Customize(
+                    new CompositeCustomization(
+                        new InMemoryContextCustomization(),
+                        new ConstructorCustomization(
+                            typeof(TestDbContext),
+                            new GreedyConstructorQuery())))
+                .Create<TestDbContext>();
 
-            using var context = fixture.Create<TestDbContext>();
             context.Database.EnsureCreated();
 
             context.Customers.Add(new Customer("John Doe"));
@@ -35,42 +33,38 @@ namespace AutoFixture.Community.AutoEF.InMemory.Tests
 
         [Theory]
         [AutoInMemoryDomainData]
-        public async Task SaveChangesAsync_ShouldCreateCustomerRecord([Greedy] TestDbContext context)
+        public async Task SaveChangesAsync_ShouldCreateCustomerRecord(
+            [Greedy] TestDbContext context)
         {
-            await using (context)
-            {
-                await context.Database.EnsureCreatedAsync();
+            await context.Database.EnsureCreatedAsync();
 
-                context.Customers.Add(new Customer("Jane Smith"));
-                await context.SaveChangesAsync();
+            context.Customers.Add(new Customer("Jane Smith"));
+            await context.SaveChangesAsync();
 
-                context.Customers.Should().Contain(x => x.Name == "Jane Smith");
-            }
+            context.Customers.Should().Contain(x => x.Name == "Jane Smith");
         }
 
-        [Theory]
-        [AutoData]
-        public void Customize_ShouldAddOptionsBuilderToFixture(InMemoryContextCustomization customization,
-            Fixture fixture)
+        [Fact]
+        public void Customize_ShouldAddOptionsBuilderToFixture()
         {
-            fixture.Customize(customization);
+            var fixture = new Fixture().Customize(new InMemoryContextCustomization());
 
             fixture.Customizations.Should()
-                .ContainSingle(x => x.GetType() == typeof(InMemoryOptionsSpecimenBuilder));
+                .ContainSingle(x => x.GetType() == typeof(InMemoryOptionsBuilder));
         }
 
-        [Theory]
-        [AutoData]
-        public void Customize_ForNullFixture_ShouldThrow(InMemoryContextCustomization customization)
+        [Fact]
+        public void Customize_ForNullFixture_ShouldThrow()
         {
-            Action act = () => customization.Customize(default);
+            Action act = () => new InMemoryContextCustomization().Customize(default);
 
             act.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Theory]
         [AutoInMemoryDomainData]
-        public void Customize_ForCustomDbContext_ShouldReturnContextInstance([Greedy] TestCustomDbContext context)
+        public void Customize_ForCustomDbContext_ShouldReturnContextInstance(
+            [Greedy] TestCustomDbContext context)
         {
             context.Should().NotBeNull()
                 .And.BeOfType<TestCustomDbContext>();

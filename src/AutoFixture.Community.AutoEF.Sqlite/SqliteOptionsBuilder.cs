@@ -1,23 +1,30 @@
-﻿using System;
+using AutoFixture.Kernel;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoFixture.Community.AutoEF.Sqlite
 {
-    public class SqliteOptionsBuilder : OptionsBuilder
+    /// <summary>
+    /// Builds <see cref="DbContextOptions{TContext}"/> instances.
+    /// </summary>
+    public class SqliteOptionsBuilder : DbContextOptionsBuilder
     {
-        public SqliteOptionsBuilder(SqliteConnection connection)
+        public SqliteOptionsBuilder(IRequestSpecification optionsSpecification)
+            : base(optionsSpecification)
         {
-            this.Connection = connection
-                              ?? throw new ArgumentNullException(nameof(connection));
         }
 
-        public SqliteConnection Connection { get; }
-
-        public override DbContextOptions<TContext> Build<TContext>()
+        public SqliteOptionsBuilder()
+            : base(new DbContextOptionsSpecification())
         {
+        }
+
+        /// <inheritdoc />
+        protected override DbContextOptions<TContext> Build<TContext>(ISpecimenContext context)
+        {
+            var connection = context.Create<SqliteConnection>();
             return new DbContextOptionsBuilder<TContext>()
-                .UseSqlite(this.Connection)
+                .UseSqlite(connection)
                 .Options;
         }
     }

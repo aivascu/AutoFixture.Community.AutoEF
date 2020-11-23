@@ -1,4 +1,4 @@
-﻿using AutoFixture.AutoMoq;
+using AutoFixture.AutoMoq;
 
 namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 {
@@ -6,7 +6,6 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
     {
         public SqliteDomainCustomization()
             : base(
-                new IgnoredVirtualMembersCustomization(),
                 new SqliteContextCustomization(),
                 new AutoMoqCustomization())
         {

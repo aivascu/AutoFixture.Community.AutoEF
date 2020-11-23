@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.Data.Sqlite;
@@ -37,18 +37,6 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
 
         [Theory]
         [AutoData]
-        public void Customize_ShouldAddOptionsBuilderToFixture(
-            Fixture fixture,
-            SqliteContextCustomization customization)
-        {
-            fixture.Customize(customization);
-
-            fixture.Customizations.Should()
-                .ContainSingle(x => x.GetType() == typeof(SqliteOptionsSpecimenBuilder));
-        }
-
-        [Theory]
-        [AutoData]
         public void Customize_ShouldAddConnectionBuilderToFixture(
             Fixture fixture,
             SqliteContextCustomization customization)
@@ -56,7 +44,7 @@ namespace AutoFixture.Community.AutoEF.Sqlite.Tests
             fixture.Customize(customization);
 
             fixture.Customizations.Should()
-                .ContainSingle(x => x.GetType() == typeof(SqliteConnectionSpecimenBuilder));
+                .ContainSingle(x => x.GetType() == typeof(SqliteConnectionBuilder));
         }
 
         [Theory]

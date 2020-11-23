@@ -11,6 +11,7 @@ namespace AutoFixture.Community.AutoEF
             return request is Type type
                    && !type.IsAbstract
                    && type.IsGenericType
+                   && type.GenericTypeArguments.Length == 1
                    && typeof(DbContextOptions<>) == type.GetGenericTypeDefinition();
         }
     }
