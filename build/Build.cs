@@ -158,7 +158,7 @@ internal partial class Build : NukeBuild
         .Executes(() =>
         {
             ReportGenerator(_ => _
-                .SetFramework("netcoreapp3.0")
+                .SetFramework("netcoreapp3.1")
                 .SetReports(TestResultsDirectory / "*.xml")
                 .SetTargetDirectory(CoverageDirectory)
                 .SetReportTypes((ReportTypes)"lcov")
@@ -180,6 +180,10 @@ internal partial class Build : NukeBuild
                 .SetSymbolPackageFormat(DotNetSymbolPackageFormat.snupkg)
                 .EnableIncludeSymbols()
                 .CombineWith(LibProjects, (_, p) => _.SetProject(p)));
+
+            Assert(
+                PackageFiles.Count == 3,
+                 $"Unexpected number of packages. Expected 3, actuallty got {PackageFiles.Count}.");
         });
 
     Target Publish => _ => _
@@ -191,10 +195,6 @@ internal partial class Build : NukeBuild
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {
-            Assert(
-                PackageFiles.Count == 3,
-                 $"Unexpected number of packages. Expected 3, actuallty got {PackageFiles.Count}.");
-
             DotNetNuGetPush(s => s
                     .SetSource(NuGetSource)
                     .SetApiKey(NuGetApiKey)

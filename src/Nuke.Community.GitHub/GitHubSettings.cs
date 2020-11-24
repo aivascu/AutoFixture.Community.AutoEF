@@ -8,6 +8,6 @@ namespace Nuke.Community.GitHub
         public string AuthToken { get; set; }
         public string RepositoryName { get; set; }
         public string RepositoryOwner { get; set; }
-        public override Action<OutputType, string> CustomLogger { get; }
+        public override Action<OutputType, string> ProcessCustomLogger { get; }
     }
 }
