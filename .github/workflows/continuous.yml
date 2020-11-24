@@ -37,8 +37,8 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: testresults
-          path: testresults
+          path: artifacts/testresults
       - uses: actions/upload-artifact@v1
         with:
-          name: artifacts
-          path: artifacts
+          name: packages
+          path: artifacts/packages

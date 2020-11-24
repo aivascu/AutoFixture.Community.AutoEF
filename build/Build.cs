@@ -45,51 +45,52 @@ internal partial class Build : NukeBuild
     ///   - Microsoft VSCode           https://nuke.build/vscode
     public static int Main() => Execute<Build>(x => x.Compile);
 
-    private const string MasterBranch = "master";
-    private const string DevelopBranch = "develop";
-    private const string ReleaseBranchPrefix = "release";
-    private const string HotfixBranchPrefix = "hotfix";
+    const string MasterBranch = "master";
+    const string DevelopBranch = "develop";
+    const string ReleaseBranchPrefix = "release";
+    const string HotfixBranchPrefix = "hotfix";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Parameter("NuGet API Key")]
-    private readonly string NuGetApiKey;
+    readonly string NuGetApiKey;
 
     [Parameter("NuGet Source for Packages")]
-    private readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
+    readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
     [Required]
     [Solution]
-    private readonly Solution Solution;
+    readonly Solution Solution;
 
     [Required]
     [GitRepository]
-    private readonly GitRepository GitRepository;
+    readonly GitRepository GitRepository;
 
     [Required]
     [GitVersion]
-    readonly GitVersion GitVersion;
+    GitVersion GitVersion;
 
     [Partition(2)]
-    private readonly Partition TestPartition;
+    readonly Partition TestPartition;
 
-    private readonly IEnumerable<string> NonLibProjects = new[] { "_build", "TestClasses" };
+    readonly IEnumerable<string> NonLibProjects = new[] { "_build", "TestClasses" };
 
-    private IEnumerable<Project> TestProjects => TestPartition.GetCurrent(Solution.GetProjects("*.Tests"));
+    IEnumerable<Project> TestProjects => TestPartition.GetCurrent(Solution.GetProjects("*.Tests"));
 
-    private IEnumerable<Project> LibProjects => Solution.Projects
+    IEnumerable<Project> LibProjects => Solution.Projects
         .Where(p => !p.Name.EndsWith(".Tests")
                     && !NonLibProjects.Contains(p.Name, StringComparer.OrdinalIgnoreCase));
 
-    private List<AbsolutePath> PackageFiles => ArtifactsDirectory.GlobFiles("*.nupkg").ToList();
 
-    private AbsolutePath SourceDirectory => RootDirectory / "src";
-    private AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
-    private AbsolutePath TestResultsDirectory => RootDirectory / "testresults";
-    private AbsolutePath CoverageDirectory => RootDirectory / "coverage";
+    AbsolutePath SourceDirectory => RootDirectory / "src";
+    AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    AbsolutePath TestResultsDirectory => ArtifactsDirectory / "testresults";
+    AbsolutePath CoverageDirectory => ArtifactsDirectory / "coverage";
+    AbsolutePath PackagesDirectory => ArtifactsDirectory / "packages";
+    List<AbsolutePath> PackageFiles => PackagesDirectory.GlobFiles("*.nupkg").ToList();
 
-    private Target Clean => _ => _
+    Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
@@ -100,16 +101,19 @@ internal partial class Build : NukeBuild
             EnsureCleanDirectory(ArtifactsDirectory);
             EnsureCleanDirectory(TestResultsDirectory);
             EnsureCleanDirectory(CoverageDirectory);
+            EnsureCleanDirectory(PackagesDirectory);
+
+            DeleteDirectory(ArtifactsDirectory);
         });
 
-    private Target Restore => _ => _
+    Target Restore => _ => _
         .Executes(() =>
         {
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
         });
 
-    private Target Compile => _ => _
+    Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
@@ -123,7 +127,7 @@ internal partial class Build : NukeBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion));
         });
 
-    private Target Test => _ => _
+    Target Test => _ => _
         .DependsOn(Compile)
         .Produces(TestResultsDirectory / "*.trx")
         .Produces(TestResultsDirectory / "*.xml")
@@ -147,7 +151,7 @@ internal partial class Build : NukeBuild
                         .SetCoverletOutput(TestResultsDirectory / $"{v.Name}.xml"))));
         });
 
-    private Target Cover => _ => _
+    Target Cover => _ => _
         .DependsOn(Test)
         .Consumes(Test)
         .Produces(CoverageDirectory / "lcov.info")
@@ -162,23 +166,23 @@ internal partial class Build : NukeBuild
                     .AddReportTypes(ReportTypes.HtmlInline)));
         });
 
-    private Target Pack => _ => _
+    Target Pack => _ => _
         .DependsOn(Compile)
-        .Produces(ArtifactsDirectory / "*.nupkg")
-        .Produces(ArtifactsDirectory / "*.snupkg")
+        .Produces(PackagesDirectory / "*.nupkg")
+        .Produces(PackagesDirectory / "*.snupkg")
         .Executes(() =>
         {
             DotNetPack(s => s
                 .SetConfiguration(Configuration)
                 .SetNoBuild(InvokedTargets.Contains(Compile))
-                .SetOutputDirectory(ArtifactsDirectory)
+                .SetOutputDirectory(PackagesDirectory)
                 .SetVersion(GitVersion.NuGetVersionV2)
                 .SetSymbolPackageFormat(DotNetSymbolPackageFormat.snupkg)
                 .EnableIncludeSymbols()
                 .CombineWith(LibProjects, (_, p) => _.SetProject(p)));
         });
 
-    private Target Publish => _ => _
+    Target Publish => _ => _
         .ProceedAfterFailure()
         .DependsOn(Test, Pack)
         .Consumes(Pack)

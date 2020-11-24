@@ -13,7 +13,7 @@ partial class Build
     [Parameter("Coveralls.io repo token")]
     readonly string CoverallsToken;
 
-    private Target PublishCoverage => _ => _
+    Target PublishCoverage => _ => _
         .DependsOn(Cover)
         .Consumes(Cover)
         .Executes(() =>
@@ -23,7 +23,7 @@ partial class Build
             CoverallsNet(_ => _
                 .SetDryRun(IsLocalBuild)
                 .SetRepoToken(CoverallsToken)
-                .SetArgumentConfigurator(x => x.Add("--lcov"))
+                .SetProcessArgumentConfigurator(x => x.Add("--lcov"))
                 .SetInput(CoverageDirectory / "lcov.info")
                 .SetCommitBranch(GitRepository.Branch)
                 .SetCommitId(commit.Hash)
@@ -32,7 +32,7 @@ partial class Build
                 .SetCommitMessage(commit.Message));
         });
 
-    private CommitInfo GetLastCommit() => new[] { RootDirectory / ".git" }
+    CommitInfo GetLastCommit() => new[] { RootDirectory / ".git" }
         .SelectMany(x => Git(
             @"log -1 --pretty=""%H|%an|%ae|%s""",
             workingDirectory: RootDirectory,
@@ -45,7 +45,7 @@ partial class Build
         .Select(x => new CommitInfo(x[0], x[1], x[2], x[3]))
         .Single();
 
-    private class CommitInfo
+    class CommitInfo
     {
         public CommitInfo(string hash, string name, string email, string message)
         {
